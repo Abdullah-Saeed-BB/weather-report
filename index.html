@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+    <title>Weather Report</title>
+</head>
+<body>
+    <div id="error-popup" style="display: block;">
+        <p id="error-message">Loading...</p>
+    </div>
+    <div id="data-section" style="display: none;">
+        <div id="temp-section">
+            <h2 id="temp-city">city</h2>
+            <h1 id="temp-temp">0°</h1>
+            <p id="temp-date">Day, Mon 0</p>
+            <p id="temp-wind">0.00 m/s 0°</p>
+            <p id="temp-desc"></p>
+        </div>
+        <div id="forecast-section">
+            <div id="hourly-forecast" class="section">
+                <p class="info">Hourly forcast</p>
+                <ul></ul>
+            </div>
+            <div id="daily-forecast" class="section">
+                <p class="info">Daily forecast</p>
+                <ul>
+                    <li class="forecast active" id="0">
+                        <p>TODAY</p>
+                        <img id="today-forecast-img" src="">
+                        <h4 id="today-forecast-temp"></h4>
+                        <hr>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+</body>
+    <script src="script.js" type="module"></script>
+    <script src="caller.js" type="module"></script>
+</html>
