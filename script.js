@@ -9,7 +9,8 @@ const allForecasts = new Array();
 const getWeatherIcon = (iconId) => (`https://openweathermap.org/img/wn/${iconId}@2x.png`);
 
 function appendForecast(forecast, hourly=false) {
-   let weatherDesc = forecast.weather[0].description
+   let weatherMain = forecast.weather[0].main.toLowerCase();
+   let weatherDesc = forecast.weather[0].description;
    const newForecast = {
       temp: forecast.main.temp,
       wind: {speed: forecast.wind.speed, deg: forecast.wind.deg},
@@ -18,9 +19,10 @@ function appendForecast(forecast, hourly=false) {
          forecast.dt_txt.toLocaleDateString('default', {weekday: 'short', month: 'long', day: '2-digit'}),
       weatherDescription: weatherDesc[0].toUpperCase() + weatherDesc.slice(1)      
    }
-   switch (weatherDesc) {
-      case 'clear sky':
-      case 'few clouds':
+
+   switch (weatherMain) {
+      case 'clear':
+      default:
          if (forecast.sys.pod == 'n') {
             newForecast['background'] = ['#080a2c', '#333759'];
          }
@@ -28,14 +30,10 @@ function appendForecast(forecast, hourly=false) {
             newForecast['background'] = ['#6eb5e4', '#b8ebff'];
          }
          break
-      case 'scattered clouds':
-      case 'mist':
+      case 'clouds':
          newForecast['background'] = ['#a0a8bb', '#597296'];
          break
-      case 'broken clouds':
-      case 'shower rain':
       case 'rain':
-      case 'thunderstorm':
          newForecast['background'] = ['#6f7686', '#344255']
          break
       case 'snow':
@@ -86,13 +84,10 @@ getData('https://api.openweathermap.org/data/2.5/forecast?', (d) => {
 
    for (let i = (24 - forecastList[0].dt_txt.getHours())/3; i < forecastList.length; i += 8) {
       let forecastsDay = forecastList.slice(i, i + 8);
-      console.log(forecastsDay);
       if (forecastsDay.length >= 5) {
-         console.log(forecastsDay[4]);
          forecasts['daily'].push(forecastsDay[4])
       }
       else {
-         // console.log(forecastsDay[forecastsDay.length - 1]);
          forecasts['daily'].push(forecastsDay[forecastsDay.length - 1])
       }
    }
